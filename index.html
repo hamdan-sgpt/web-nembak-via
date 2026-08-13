@@ -123,33 +123,19 @@
         <!-- 6 BLOCK HEART PUZZLE BOARD (3x2 GRID) -->
         <div class="heart-matrix-container">
           <div class="heart-matrix-board" id="puzzle-board">
-            <div class="puzzle-slot" data-slot="0">
-              <span class="slot-hint">1</span>
-            </div>
-            <div class="puzzle-slot" data-slot="1">
-              <span class="slot-hint">2</span>
-            </div>
-            <div class="puzzle-slot" data-slot="2">
-              <span class="slot-hint">3</span>
-            </div>
-            <div class="puzzle-slot" data-slot="3">
-              <span class="slot-hint">4</span>
-            </div>
-            <div class="puzzle-slot" data-slot="4">
-              <span class="slot-hint">5</span>
-            </div>
-            <div class="puzzle-slot" data-slot="5">
-              <span class="slot-hint">6</span>
-            </div>
+            <div class="puzzle-slot" data-slot="0"><span class="slot-hint">1</span></div>
+            <div class="puzzle-slot" data-slot="1"><span class="slot-hint">2</span></div>
+            <div class="puzzle-slot" data-slot="2"><span class="slot-hint">3</span></div>
+            <div class="puzzle-slot" data-slot="3"><span class="slot-hint">4</span></div>
+            <div class="puzzle-slot" data-slot="4"><span class="slot-hint">5</span></div>
+            <div class="puzzle-slot" data-slot="5"><span class="slot-hint">6</span></div>
           </div>
         </div>
 
         <!-- Shuffled Pieces Tray -->
         <div class="pieces-tray-wrapper">
           <p class="tray-label">geser atau pencet 6 kepingan hati di bawah:</p>
-          <div class="pieces-tray" id="pieces-tray">
-            <!-- Shuffled 6 puzzle pieces rendered via JS -->
-          </div>
+          <div class="pieces-tray" id="pieces-tray"></div>
         </div>
       </div>
     </section>
@@ -159,10 +145,24 @@
       <div class="praise-card">
         <div class="header-badge">kamu tuh spesial banget 🌸</div>
         
-        <!-- Polaroid Photo Frame -->
-        <div class="polaroid-photo-frame">
-          <img id="doi-photo-img" src="assets/doi_photo.svg" alt="Foto Via" class="doi-photo">
-          <span class="polaroid-caption"><span class="doi-name">Devia</span> ✨</span>
+        <!-- 4 Polaroid Photo Grid -->
+        <div class="polaroid-grid">
+          <div class="polaroid-photo-frame" style="transform: rotate(-3deg);">
+            <img id="doi-photo-1" src="assets/doi_photo.svg" alt="Foto 1" class="doi-photo">
+            <span class="polaroid-caption">💖</span>
+          </div>
+          <div class="polaroid-photo-frame" style="transform: rotate(2deg);">
+            <img id="doi-photo-2" src="assets/doi_photo.svg" alt="Foto 2" class="doi-photo">
+            <span class="polaroid-caption">🥰</span>
+          </div>
+          <div class="polaroid-photo-frame" style="transform: rotate(3deg);">
+            <img id="doi-photo-3" src="assets/doi_photo.svg" alt="Foto 3" class="doi-photo">
+            <span class="polaroid-caption">✨</span>
+          </div>
+          <div class="polaroid-photo-frame" style="transform: rotate(-2deg);">
+            <img id="doi-photo-4" src="assets/doi_photo.svg" alt="Foto 4" class="doi-photo">
+            <span class="polaroid-caption"><span class="doi-name">Via</span> 💕</span>
+          </div>
         </div>
 
         <h2 class="praise-title">cantik banget sih... 🥰</h2>
@@ -230,8 +230,20 @@
           <input type="text" id="input-wa-num" placeholder="misal: 6281234567890">
         </div>
         <div class="form-group">
-          <label for="input-doi-photo">URL foto doi / Via (opsional):</label>
-          <input type="text" id="input-doi-photo" placeholder="paste link foto doi di sini">
+          <label for="input-doi-photo-1">URL foto doi 1:</label>
+          <input type="text" id="input-doi-photo-1" placeholder="paste link foto 1">
+        </div>
+        <div class="form-group">
+          <label for="input-doi-photo-2">URL foto doi 2:</label>
+          <input type="text" id="input-doi-photo-2" placeholder="paste link foto 2">
+        </div>
+        <div class="form-group">
+          <label for="input-doi-photo-3">URL foto doi 3:</label>
+          <input type="text" id="input-doi-photo-3" placeholder="paste link foto 3">
+        </div>
+        <div class="form-group">
+          <label for="input-doi-photo-4">URL foto doi 4:</label>
+          <input type="text" id="input-doi-photo-4" placeholder="paste link foto 4">
         </div>
         <div class="form-group">
           <label for="input-proposal">kata-kata nembak (slide 2):</label>
