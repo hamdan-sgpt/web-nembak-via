@@ -9,7 +9,7 @@ const state = {
   praiseText: "jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. kamu orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi. makasih ya udah hadir dan nemenin aku.",
   doiPhotos: ["assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg"],
   discordWebhook: "https://discord.com/api/webhooks/1537412788295831632/29FxLi7XLwZfIuSuCumO6m-HUTdUsEY2e0yaC0wBHuyeKA0h7YSV10GP2Yge1VBlKOay",
-  musicUrl: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-romance-112818.mp3",
+  musicUrl: "assets/Bruno Mars - Risk It All.mp3",
   placedPieces: 0,
   selectedPieceIdx: null,
   activeHeartType: "yes"
@@ -55,7 +55,7 @@ function resetSettings() {
   state.praiseText = "jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. kamu orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi. makasih ya udah hadir dan nemenin aku.";
   state.doiPhotos = ["assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg"];
   state.discordWebhook = "https://discord.com/api/webhooks/1537412788295831632/29FxLi7XLwZfIuSuCumO6m-HUTdUsEY2e0yaC0wBHuyeKA0h7YSV10GP2Yge1VBlKOay";
-  state.musicUrl = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-romance-112818.mp3";
+  state.musicUrl = "assets/Bruno Mars - Risk It All.mp3";
   updateDOMWithState();
   initPuzzleGame();
   populateSettingsForm();
@@ -238,22 +238,38 @@ function goToVictoryScreen() {
 let audioCtx = null;
 let isMusicPlaying = false;
 
+function startBgMusic() {
+  const bgMusic = document.getElementById("bg-music");
+  if (!bgMusic) return;
+  if (bgMusic.currentTime < 64) {
+    bgMusic.currentTime = 64;
+  }
+  bgMusic.play().then(() => {
+    isMusicPlaying = true;
+    const vinyl = document.getElementById("vinyl-record");
+    if (vinyl) vinyl.classList.add("spin");
+  }).catch(() => {});
+}
+
 function initAudio() {
   const bgMusic = document.getElementById("bg-music");
-  bgMusic.src = state.musicUrl;
-  bgMusic.volume = 0.5;
-  document.getElementById("btn-music-toggle").addEventListener("click", () => {
-    if (isMusicPlaying) {
-      bgMusic.pause();
-      isMusicPlaying = false;
-      document.getElementById("vinyl-record").classList.remove("spin");
-    } else {
-      bgMusic.play().then(() => {
-        isMusicPlaying = true;
-        document.getElementById("vinyl-record").classList.add("spin");
-      }).catch(() => {});
-    }
-  });
+  if (bgMusic) {
+    bgMusic.src = state.musicUrl;
+    bgMusic.volume = 0.5;
+  }
+  const btnToggle = document.getElementById("btn-music-toggle");
+  if (btnToggle) {
+    btnToggle.addEventListener("click", () => {
+      if (isMusicPlaying) {
+        bgMusic.pause();
+        isMusicPlaying = false;
+        const vinyl = document.getElementById("vinyl-record");
+        if (vinyl) vinyl.classList.remove("spin");
+      } else {
+        startBgMusic();
+      }
+    });
+  }
 }
 
 function getAudioContext() {
@@ -287,6 +303,7 @@ function playVictoryFanfare() {
 // --- BACKGROUND CANVAS ---
 function initBackgroundCanvas() {
   const canvas = document.getElementById("bg-canvas");
+  if (!canvas) return;
   const ctx = canvas.getContext("2d");
   let width = canvas.width = window.innerWidth;
   let height = canvas.height = window.innerHeight;
@@ -337,6 +354,7 @@ function initBackgroundCanvas() {
 // --- CONFETTI ---
 function triggerConfetti() {
   const canvas = document.getElementById("confetti-canvas");
+  if (!canvas) return;
   const ctx = canvas.getContext("2d");
   let width = canvas.width = window.innerWidth;
   let height = canvas.height = window.innerHeight;
@@ -372,50 +390,70 @@ function triggerConfetti() {
 
 // --- EVENTS ---
 function initEvents() {
-  document.getElementById("envelope-trigger").addEventListener("click", () => {
-    playChimeSound(800, "sine");
-    document.getElementById("envelope-trigger").classList.add("open");
-    const bgMusic = document.getElementById("bg-music");
-    bgMusic.play().then(() => {
-      isMusicPlaying = true;
-      document.getElementById("vinyl-record").classList.add("spin");
-    }).catch(() => {});
-    setTimeout(() => switchScreen("screen-proposal"), 1200);
-  });
+  const envelope = document.getElementById("envelope-trigger");
+  if (envelope) {
+    envelope.addEventListener("click", () => {
+      playChimeSound(800, "sine");
+      envelope.classList.add("open");
+      startBgMusic();
+      setTimeout(() => switchScreen("screen-proposal"), 1200);
+    });
+  }
 
-  document.getElementById("tab-yes-heart").addEventListener("click", () => {
-    state.activeHeartType = "yes";
-    document.getElementById("tab-yes-heart").classList.add("active");
-    document.getElementById("tab-no-heart").classList.remove("active");
-    document.getElementById("warning-box").style.display = "none";
-    initPuzzleGame();
-  });
+  const tabYes = document.getElementById("tab-yes-heart");
+  if (tabYes) {
+    tabYes.addEventListener("click", () => {
+      state.activeHeartType = "yes";
+      tabYes.classList.add("active");
+      const tabNo = document.getElementById("tab-no-heart");
+      if (tabNo) tabNo.classList.remove("active");
+      const warnBox = document.getElementById("warning-box");
+      if (warnBox) warnBox.style.display = "none";
+      initPuzzleGame();
+    });
+  }
 
-  document.getElementById("tab-no-heart").addEventListener("click", () => {
-    state.activeHeartType = "no";
-    document.getElementById("tab-no-heart").classList.add("active");
-    document.getElementById("tab-yes-heart").classList.remove("active");
-    showBrokenHeartWarning();
-    initPuzzleGame();
-  });
+  const tabNo = document.getElementById("tab-no-heart");
+  if (tabNo) {
+    tabNo.addEventListener("click", () => {
+      state.activeHeartType = "no";
+      tabNo.classList.add("active");
+      if (tabYes) tabYes.classList.remove("active");
+      showBrokenHeartWarning();
+      initPuzzleGame();
+    });
+  }
 
-  document.getElementById("btn-open-settings").addEventListener("click", openSettingsModal);
-  document.getElementById("btn-close-settings").addEventListener("click", closeSettingsModal);
-  document.getElementById("btn-save-settings").addEventListener("click", () => {
-    state.doiName = document.getElementById("input-doi-name").value.trim() || "Via";
-    state.senderName = document.getElementById("input-sender-name").value.trim() || "aku";
-    state.proposalText = document.getElementById("input-proposal").value.trim() || state.proposalText;
-    state.praiseText = document.getElementById("input-praise").value.trim() || state.praiseText;
-    for (let i = 0; i < 4; i++) {
-      const val = document.getElementById(`input-doi-photo-${i + 1}`).value.trim();
-      if (val) state.doiPhotos[i] = val;
-    }
-    state.discordWebhook = document.getElementById("input-discord-webhook").value.trim();
-    const musicInp = document.getElementById("input-music-url").value.trim();
-    if (musicInp) state.musicUrl = musicInp;
-    saveSettings();
-  });
-  document.getElementById("btn-reset-settings").addEventListener("click", resetSettings);
+  const btnOpenSettings = document.getElementById("btn-open-settings");
+  if (btnOpenSettings) btnOpenSettings.addEventListener("click", openSettingsModal);
+
+  const btnCloseSettings = document.getElementById("btn-close-settings");
+  if (btnCloseSettings) btnCloseSettings.addEventListener("click", closeSettingsModal);
+
+  const btnSaveSettings = document.getElementById("btn-save-settings");
+  if (btnSaveSettings) {
+    btnSaveSettings.addEventListener("click", () => {
+      state.doiName = document.getElementById("input-doi-name").value.trim() || "Via";
+      state.senderName = document.getElementById("input-sender-name").value.trim() || "aku";
+      state.proposalText = document.getElementById("input-proposal").value.trim() || state.proposalText;
+      state.praiseText = document.getElementById("input-praise").value.trim() || state.praiseText;
+      for (let i = 0; i < 4; i++) {
+        const inputEl = document.getElementById(`input-doi-photo-${i + 1}`);
+        if (inputEl) {
+          const val = inputEl.value.trim();
+          if (val) state.doiPhotos[i] = val;
+        }
+      }
+      const webhookEl = document.getElementById("input-discord-webhook");
+      if (webhookEl) state.discordWebhook = webhookEl.value.trim();
+      const musicInp = document.getElementById("input-music-url");
+      if (musicInp && musicInp.value.trim()) state.musicUrl = musicInp.value.trim();
+      saveSettings();
+    });
+  }
+
+  const btnResetSettings = document.getElementById("btn-reset-settings");
+  if (btnResetSettings) btnResetSettings.addEventListener("click", resetSettings);
 }
 
 function switchScreen(screenId) {
