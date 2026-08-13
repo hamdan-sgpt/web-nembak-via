@@ -154,7 +154,33 @@
       </div>
     </section>
 
-    <!-- SCREEN 4: VICTORY SCREEN (DITERIMA!) -->
+    <!-- SCREEN 4: NATURAL HUMAN PRAISE & PHOTO CARD -->
+    <section id="screen-praise" class="screen">
+      <div class="praise-card">
+        <div class="header-badge">kamu tuh spesial banget 🌸</div>
+        
+        <!-- Polaroid Photo Frame -->
+        <div class="polaroid-photo-frame">
+          <img id="doi-photo-img" src="assets/doi_photo.svg" alt="Foto Via" class="doi-photo">
+          <span class="polaroid-caption"><span class="doi-name">Devia</span> ✨</span>
+        </div>
+
+        <h2 class="praise-title">cantik banget sih... 🥰</h2>
+        <div class="praise-box">
+          <p id="praise-text">
+            jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. 
+            kamu tuh orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi... 
+            makasih yaa udah hadir dan nemenin aku 💖
+          </p>
+        </div>
+
+        <button class="btn-primary btn-next-victory" onclick="goToVictoryScreen()">
+          lanjut ke kabar jadian! 🥳
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: VICTORY SCREEN (DITERIMA!) -->
     <section id="screen-victory" class="screen">
       <div class="victory-card">
         <div class="sticker-container glow-effect">
@@ -187,7 +213,7 @@
   <div id="settings-modal" class="modal-backdrop">
     <div class="modal-card">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-gear"></i> edit kata-kata nembak & nama</h3>
+        <h3><i class="fa-solid fa-gear"></i> edit kata-kata nembak & foto</h3>
         <button id="btn-close-settings" class="modal-close-btn">&times;</button>
       </div>
       <div class="modal-body">
@@ -204,8 +230,16 @@
           <input type="text" id="input-wa-num" placeholder="misal: 6281234567890">
         </div>
         <div class="form-group">
+          <label for="input-doi-photo">URL foto doi / Via (opsional):</label>
+          <input type="text" id="input-doi-photo" placeholder="paste link foto doi di sini">
+        </div>
+        <div class="form-group">
           <label for="input-proposal">kata-kata nembak (slide 2):</label>
           <textarea id="input-proposal" rows="3" placeholder="tuliskan kata-kata nembak kamu..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="input-praise">kata-kata pujian (slide foto):</label>
+          <textarea id="input-praise" rows="3" placeholder="pujian romantis santai buat doi..."></textarea>
         </div>
         <div class="form-group">
           <label for="input-discord-webhook">URL Discord Webhook (untuk Notifikasi):</label>
