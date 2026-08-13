@@ -10,7 +10,7 @@ const state = {
   senderName: "aku",
   waNum: "6281234567890",
   proposalText: "sebenarnya aku udah lama banget nyimpen perasaan ini ke kamu, Devia... tiap hari ada kamu tuh bikin hari-hariku jauh lebih bahagia! jadi hari ini aku mau nanya langsung: <strong>Via, kamu mau gak jadi pacar aku? 👉👈</strong>",
-  discordWebhook: "",
+  discordWebhook: "https://discord.com/api/webhooks/1537412788295831632/29FxLi7XLwZfIuSuCumO6m-HUTdUsEY2e0yaC0wBHuyeKA0h7YSV10GP2Yge1VBlKOay",
   musicUrl: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-romance-112818.mp3",
   placedPieces: 0,
   selectedPieceIdx: null,
@@ -73,7 +73,7 @@ function resetSettings() {
   state.senderName = "aku";
   state.waNum = "6281234567890";
   state.proposalText = "sebenarnya aku udah lama banget nyimpen perasaan ini ke kamu, Devia... tiap hari ada kamu tuh bikin hari-hariku jauh lebih bahagia! jadi hari ini aku mau nanya langsung: <strong>Via, kamu mau gak jadi pacar aku? 👉👈</strong>";
-  state.discordWebhook = "";
+  state.discordWebhook = "https://discord.com/api/webhooks/1537412788295831632/29FxLi7XLwZfIuSuCumO6m-HUTdUsEY2e0yaC0wBHuyeKA0h7YSV10GP2Yge1VBlKOay";
   state.musicUrl = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-romance-112818.mp3";
   
   updateDOMWithState();
