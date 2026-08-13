@@ -7,7 +7,7 @@ const state = {
   senderName: "aku",
   proposalText: "sebenernya aku udah lama banget nyimpen perasaan ini ke kamu, Devia... tiap hari ada kamu tuh bikin hari-hariku jauh lebih bahagia. jadi hari ini aku mau nanya langsung aja: <strong>Via, kamu mau gak jadi pacar aku?</strong>",
   praiseText: "jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. kamu orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi. makasih ya udah hadir dan nemenin aku.",
-  doiPhotos: ["assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg"],
+  doiPhotos: ["assets/photo_1.jpg", "assets/photo_2.jpg", "assets/photo_3.jpg", "assets/photo_4.jpg"],
   discordWebhook: "https://discord.com/api/webhooks/1537412788295831632/29FxLi7XLwZfIuSuCumO6m-HUTdUsEY2e0yaC0wBHuyeKA0h7YSV10GP2Yge1VBlKOay",
   musicUrl: "assets/Bruno Mars - Risk It All.mp3",
   placedPieces: 0,
@@ -53,7 +53,7 @@ function resetSettings() {
   state.senderName = "aku";
   state.proposalText = "sebenernya aku udah lama banget nyimpen perasaan ini ke kamu, Devia... tiap hari ada kamu tuh bikin hari-hariku jauh lebih bahagia. jadi hari ini aku mau nanya langsung aja: <strong>Via, kamu mau gak jadi pacar aku?</strong>";
   state.praiseText = "jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. kamu orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi. makasih ya udah hadir dan nemenin aku.";
-  state.doiPhotos = ["assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg"];
+  state.doiPhotos = ["assets/photo_1.jpg", "assets/photo_2.jpg", "assets/photo_3.jpg", "assets/photo_4.jpg"];
   state.discordWebhook = "https://discord.com/api/webhooks/1537412788295831632/29FxLi7XLwZfIuSuCumO6m-HUTdUsEY2e0yaC0wBHuyeKA0h7YSV10GP2Yge1VBlKOay";
   state.musicUrl = "assets/Bruno Mars - Risk It All.mp3";
   updateDOMWithState();
@@ -74,7 +74,7 @@ function updateDOMWithState() {
 
   for (let i = 0; i < 4; i++) {
     const photoEl = document.getElementById(`doi-photo-${i + 1}`);
-    if (photoEl) photoEl.src = (state.doiPhotos && state.doiPhotos[i]) || "assets/doi_photo.svg";
+    if (photoEl) photoEl.src = (state.doiPhotos && state.doiPhotos[i]) || `assets/photo_${i + 1}.jpg`;
   }
 
   const bgMusic = document.getElementById("bg-music");
@@ -138,6 +138,9 @@ function initPuzzleGame() {
   state.placedPieces = 0;
   state.selectedPieceIdx = null;
   document.getElementById("placed-count").textContent = "0";
+
+  const board = document.getElementById("puzzle-board");
+  if (board) board.classList.remove("complete-glow");
 
   const tray = document.getElementById("pieces-tray");
   tray.innerHTML = "";
@@ -222,6 +225,8 @@ function showBrokenHeartWarning() {
 }
 
 function onPuzzleComplete() {
+  const board = document.getElementById("puzzle-board");
+  if (board) board.classList.add("complete-glow");
   playVictoryFanfare();
   triggerConfetti();
   sendDiscordNotification("ACCEPTED");

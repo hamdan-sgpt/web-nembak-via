@@ -270,50 +270,96 @@ body {
 }
 
 .heart-matrix-container {
-  width: 250px; height: 175px; margin-bottom: 16px;
+  width: 270px; height: 185px; margin-bottom: 16px;
   display: flex; justify-content: center; align-items: center;
 }
 .heart-matrix-board {
-  width: 240px; height: 165px;
+  width: 260px; height: 175px;
   display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);
-  gap: 5px; background: #fff5f7;
-  border: 3px dashed var(--primary-pink); border-radius: 16px; padding: 6px;
+  gap: 6px; background: linear-gradient(135deg, #fff0f5 0%, #ffe4e9 100%);
+  border: 2px solid rgba(255, 75, 114, 0.4);
+  border-radius: 18px; padding: 7px;
+  box-shadow: inset 0 2px 10px rgba(255, 75, 114, 0.12), 0 8px 25px rgba(255, 75, 114, 0.15);
+  transition: all 0.4s ease;
+}
+.heart-matrix-board.complete-glow {
+  border-color: #ff4b72;
+  box-shadow: 0 0 30px rgba(255, 75, 114, 0.6), inset 0 0 15px rgba(255, 75, 114, 0.3);
+  animation: completeBoardGlow 1.2s ease infinite alternate;
 }
 .puzzle-slot {
-  position: relative; background: rgba(255, 255, 255, 0.7);
+  position: relative; background: rgba(255, 255, 255, 0.85);
+  border: 1px dashed rgba(255, 75, 114, 0.35);
   display: flex; justify-content: center; align-items: center;
-  transition: background 0.2s; border-radius: 8px;
+  transition: all 0.25s ease; border-radius: 10px;
+  overflow: hidden;
 }
-.puzzle-slot.drag-over { background: #ffccd5; }
-.slot-hint { font-size: 1.4rem; font-weight: 800; color: var(--primary-pink); opacity: 0.6; }
+.puzzle-slot.drag-over {
+  background: #ffccd5;
+  border-style: solid;
+  border-color: var(--primary-pink);
+  transform: scale(1.03);
+}
+.puzzle-slot.filled {
+  border: none;
+  background: transparent;
+  animation: slotSnap 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.slot-hint {
+  font-size: 1.3rem; font-weight: 800;
+  color: var(--primary-pink); opacity: 0.45;
+}
 
 .pieces-tray-wrapper {
-  width: 100%; background: #ffffff; border-radius: 16px;
-  padding: 12px; border: 1px solid #ffd6e0;
-  box-shadow: 0 4px 15px rgba(255, 117, 140, 0.1);
+  width: 100%; background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px; padding: 14px;
+  border: 1px solid #ffd6e0;
+  box-shadow: 0 6px 20px rgba(255, 117, 140, 0.12);
 }
-.tray-label { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+.tray-label {
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--text-muted); margin-bottom: 10px;
+}
 .pieces-tray {
-  display: flex; justify-content: center; gap: 8px;
+  display: flex; justify-content: center; gap: 10px;
   min-height: 120px; align-items: center; flex-wrap: wrap;
 }
 
 .puzzle-piece {
-  width: 65px; height: 55px; border-radius: 8px;
-  cursor: grab; border: 2px solid #ffffff;
-  box-shadow: 0 4px 12px rgba(255, 75, 114, 0.3);
+  width: 72px; height: 60px; border-radius: 10px;
+  cursor: grab; border: 2.5 solid #ffffff;
+  box-shadow: 0 4px 14px rgba(255, 75, 114, 0.25);
   background-image: url('assets/heart_puzzle.svg');
   background-size: 300% 200%;
-  transition: transform 0.2s, box-shadow 0.2s; touch-action: none;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease;
+  touch-action: none;
 }
-.puzzle-piece:active { cursor: grabbing; transform: scale(1.1); z-index: 50; }
+.puzzle-piece:hover {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 8px 20px rgba(255, 75, 114, 0.35);
+}
+.puzzle-piece:active { cursor: grabbing; transform: scale(1.12); z-index: 50; }
 .puzzle-piece.selected {
   border-color: var(--primary-pink);
-  box-shadow: 0 0 15px var(--primary-pink); transform: scale(1.08);
+  box-shadow: 0 0 18px rgba(255, 75, 114, 0.8);
+  transform: scale(1.1);
+  animation: pulse 1s infinite;
 }
 .puzzle-piece.placed {
-  width: 100%; height: 100%; border-radius: 6px;
+  width: 100%; height: 100%; border-radius: 8px;
   border: none; box-shadow: none; cursor: default;
+}
+.puzzle-piece.placed:hover { transform: none; box-shadow: none; }
+
+@keyframes slotSnap {
+  0% { transform: scale(0.85); opacity: 0.5; }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes completeBoardGlow {
+  from { box-shadow: 0 0 20px rgba(255, 75, 114, 0.4); }
+  to { box-shadow: 0 0 35px rgba(255, 75, 114, 0.8); }
 }
 .puzzle-piece[data-piece="0"] { background-position: 0% 0%; }
 .puzzle-piece[data-piece="1"] { background-position: 50% 0%; }
