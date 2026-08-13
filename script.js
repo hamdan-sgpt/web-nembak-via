@@ -120,34 +120,34 @@ function sendDiscordNotification(eventStatus) {
 
   if (eventStatus === "ACCEPTED") {
     payload = {
-      username: "Nembak Pacar Bot 💖",
+      username: "Kabar Dari Doi 💌",
       avatar_url: "https://cdn-icons-png.flaticon.com/512/2904/2904838.png",
       embeds: [{
-        title: "🎉 PROPOSAL DITERIMA!! 💖🥳",
-        description: `**${state.doiName} (Devia)** telah menyusun 6 Keping Hati Merah dan menerima cinta dari **${state.senderName}**!`,
+        title: "YAAAY! DEVIA (VIA) MAU JADI PACAR LU!! 🎉🥳",
+        description: `Asikkk! **${state.doiName}** baru aja selesai nyusun puzzle Hati Merah! Doi resmi jadian sama lu hari ini! 💕✨`,
         color: 16731003, // Pink #ff4b72
         fields: [
-          { name: "👤 Pasangan", value: `${state.senderName} ❤️ ${state.doiName}`, inline: true },
-          { name: "⏰ Tanggal Resmi", value: getFormattedDate(), inline: true },
-          { name: "💌 Status", value: "RESMI PACARAN 🎉", inline: false }
+          { name: "👩‍❤️‍👨 Pasangan Baru", value: `${state.senderName} ❤️ ${state.doiName}`, inline: true },
+          { name: "📅 Tanggal Jadian", value: getFormattedDate(), inline: true },
+          { name: "💬 Status", value: "Resmi Berdua 🥰", inline: false }
         ],
-        footer: { text: "Web Gift Nembak Pacar Notification ✨" },
+        footer: { text: "selamat ya bro, jangan lupa ajak jalan! 🥳" },
         timestamp: new Date().toISOString()
       }]
     };
   } else if (eventStatus === "REJECTED_ATTEMPT") {
     payload = {
-      username: "Nembak Pacar Bot 💔",
+      username: "Kabar Dari Doi 💌",
       avatar_url: "https://cdn-icons-png.flaticon.com/512/1077/1077035.png",
       embeds: [{
-        title: "🥺 ALERT: Doi coba pilih Hati Retak!",
-        description: `**${state.doiName}** mencoba memilih tab Hati Retak (Ditolak), tapi sistem langsung mengarahkan doi kembali untuk menyusun Hati Merah! 😜`,
+        title: "wkwkwk Via sempet iseng mau milih Hati Retak 😜",
+        description: `Tenang bro! Begitu **${state.doiName}** pencet Hati Retak, langsung dikasih pesan popup usil suruh susun Hati Merah yang utuh aja di sebelah! 😜👈`,
         color: 16753920, // Orange #ffaa00
         fields: [
-          { name: "👤 Target", value: state.doiName, inline: true },
-          { name: "⚡ Respon Sistem", value: "Popup peringatan ditampilkan 👈", inline: true }
+          { name: "👤 Doi", value: state.doiName, inline: true },
+          { name: "⚡ Status", value: "Ke-distract popup peringatan 😜", inline: true }
         ],
-        footer: { text: "Web Gift Nembak Pacar Notification ✨" },
+        footer: { text: "tunggu bentar lagi pasti disusun yang merah! ✨" },
         timestamp: new Date().toISOString()
       }]
     };
