@@ -1,26 +1,20 @@
 /* ==========================================
-   ROMANTIC WEB NEMBAK PACAR - INTERACTIVE JS
-   6-BLOCK DUAL HEART PROPOSAL ENGINE
-   NATURAL HUMAN PRAISE & PHOTO CARD
-   DISCORD WEBHOOK REAL-TIME NOTIFICATIONS
+   WEB NEMBAK PACAR - CLEAN HUMAN VERSION
    ========================================== */
 
-// --- GLOBAL STATE ---
 const state = {
   doiName: "Via",
   senderName: "aku",
-  waNum: "6281234567890",
-  proposalText: "sebenarnya aku udah lama banget nyimpen perasaan ini ke kamu, Devia... tiap hari ada kamu tuh bikin hari-hariku jauh lebih bahagia! jadi hari ini aku mau nanya langsung: <strong>Via, kamu mau gak jadi pacar aku? 👉👈</strong>",
-  praiseText: "jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. kamu tuh orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi... makasih yaa udah hadir dan nemenin aku 💖",
-  doiPhoto: "assets/doi_photo.svg",
+  proposalText: "sebenernya aku udah lama banget nyimpen perasaan ini ke kamu, Devia... tiap hari ada kamu tuh bikin hari-hariku jauh lebih bahagia. jadi hari ini aku mau nanya langsung aja: <strong>Via, kamu mau gak jadi pacar aku?</strong>",
+  praiseText: "jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. kamu orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi. makasih ya udah hadir dan nemenin aku.",
+  doiPhotos: ["assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg"],
   discordWebhook: "https://discord.com/api/webhooks/1537412788295831632/29FxLi7XLwZfIuSuCumO6m-HUTdUsEY2e0yaC0wBHuyeKA0h7YSV10GP2Yge1VBlKOay",
   musicUrl: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-romance-112818.mp3",
   placedPieces: 0,
   selectedPieceIdx: null,
-  activeHeartType: "yes" // "yes" = Full Heart (6 blocks), "no" = Broken Heart
+  activeHeartType: "yes"
 };
 
-// --- INITIALIZATION ---
 document.addEventListener("DOMContentLoaded", () => {
   loadSavedSettings();
   initBackgroundCanvas();
@@ -30,16 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
   updateDOMWithState();
 });
 
-// --- LOCAL STORAGE & STATE ---
 function loadSavedSettings() {
   const saved = localStorage.getItem("nembak_app_settings");
   if (saved) {
-    try {
-      const parsed = JSON.parse(saved);
-      Object.assign(state, parsed);
-    } catch (e) {
-      console.error("Failed to parse settings", e);
-    }
+    try { Object.assign(state, JSON.parse(saved)); } catch (e) {}
   }
 }
 
@@ -47,10 +35,9 @@ function saveSettings() {
   localStorage.setItem("nembak_app_settings", JSON.stringify({
     doiName: state.doiName,
     senderName: state.senderName,
-    waNum: state.waNum,
     proposalText: state.proposalText,
     praiseText: state.praiseText,
-    doiPhoto: state.doiPhoto,
+    doiPhotos: state.doiPhotos,
     discordWebhook: state.discordWebhook,
     musicUrl: state.musicUrl
   }));
@@ -64,13 +51,11 @@ function resetSettings() {
   localStorage.removeItem("nembak_app_settings");
   state.doiName = "Via";
   state.senderName = "aku";
-  state.waNum = "6281234567890";
-  state.proposalText = "sebenarnya aku udah lama banget nyimpen perasaan ini ke kamu, Devia... tiap hari ada kamu tuh bikin hari-hariku jauh lebih bahagia! jadi hari ini aku mau nanya langsung: <strong>Via, kamu mau gak jadi pacar aku? 👉👈</strong>";
-  state.praiseText = "jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. kamu tuh orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi... makasih yaa udah hadir dan nemenin aku 💖";
-  state.doiPhoto = "assets/doi_photo.svg";
+  state.proposalText = "sebenernya aku udah lama banget nyimpen perasaan ini ke kamu, Devia... tiap hari ada kamu tuh bikin hari-hariku jauh lebih bahagia. jadi hari ini aku mau nanya langsung aja: <strong>Via, kamu mau gak jadi pacar aku?</strong>";
+  state.praiseText = "jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. kamu orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi. makasih ya udah hadir dan nemenin aku.";
+  state.doiPhotos = ["assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg", "assets/doi_photo.svg"];
   state.discordWebhook = "https://discord.com/api/webhooks/1537412788295831632/29FxLi7XLwZfIuSuCumO6m-HUTdUsEY2e0yaC0wBHuyeKA0h7YSV10GP2Yge1VBlKOay";
   state.musicUrl = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-romance-112818.mp3";
-  
   updateDOMWithState();
   initPuzzleGame();
   populateSettingsForm();
@@ -87,35 +72,20 @@ function updateDOMWithState() {
   const praiseEl = document.getElementById("praise-text");
   if (praiseEl) praiseEl.innerHTML = state.praiseText;
 
-  const doiPhotoEl = document.getElementById("doi-photo-img");
-  if (doiPhotoEl) {
-    doiPhotoEl.src = state.doiPhoto || "assets/doi_photo.svg";
+  for (let i = 0; i < 4; i++) {
+    const photoEl = document.getElementById(`doi-photo-${i + 1}`);
+    if (photoEl) photoEl.src = (state.doiPhotos && state.doiPhotos[i]) || "assets/doi_photo.svg";
   }
 
   const bgMusic = document.getElementById("bg-music");
-  if (bgMusic && bgMusic.src !== state.musicUrl) {
-    bgMusic.src = state.musicUrl;
-  }
-
-  updateWALink();
-}
-
-function updateWALink() {
-  const waLinkEl = document.getElementById("wa-redirect-link");
-  if (waLinkEl) {
-    const todayStr = getFormattedDate();
-    const message = `Halo ${state.senderName}! Iyaa Via mau kok jadi pacar kamu! 💖🥰 Mulai hari ini (${todayStr}) kita resmi ya! ✨`;
-    const cleanNum = state.waNum.replace(/[^0-9]/g, "");
-    waLinkEl.href = `https://wa.me/${cleanNum}?text=${encodeURIComponent(message)}`;
-  }
+  if (bgMusic && bgMusic.src !== state.musicUrl) bgMusic.src = state.musicUrl;
 }
 
 function getFormattedDate() {
-  const d = new Date();
-  return d.toLocaleDateString("id-ID", { day: 'numeric', month: 'long', year: 'numeric' });
+  return new Date().toLocaleDateString("id-ID", { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-// --- DISCORD WEBHOOK REALTIME NOTIFICATION ---
+// --- DISCORD ---
 function sendDiscordNotification(eventStatus) {
   if (!state.discordWebhook || !state.discordWebhook.trim().startsWith("http")) return;
 
@@ -123,34 +93,34 @@ function sendDiscordNotification(eventStatus) {
 
   if (eventStatus === "ACCEPTED") {
     payload = {
-      username: "Kabar Dari Doi 💌",
+      username: "Kabar Dari Doi",
       avatar_url: "https://cdn-icons-png.flaticon.com/512/2904/2904838.png",
       embeds: [{
-        title: "YAAAY! DEVIA (VIA) MAU JADI PACAR LU!! 🎉🥳",
-        description: `Asikkk! **${state.doiName}** baru aja selesai nyusun puzzle Hati Merah! Doi resmi jadian sama lu hari ini! 💕✨`,
-        color: 16731003, // Pink #ff4b72
+        title: "YAAAY! Via mau jadi pacar lu!!",
+        description: `**${state.doiName}** baru aja selesai nyusun puzzle hati merah. doi resmi jadian sama lu hari ini!`,
+        color: 16731003,
         fields: [
-          { name: "👩‍❤️‍👨 Pasangan Baru", value: `${state.senderName} ❤️ ${state.doiName}`, inline: true },
-          { name: "📅 Tanggal Jadian", value: getFormattedDate(), inline: true },
-          { name: "💬 Status", value: "Resmi Berdua 🥰", inline: false }
+          { name: "pasangan baru", value: `${state.senderName} & ${state.doiName}`, inline: true },
+          { name: "tanggal jadian", value: getFormattedDate(), inline: true },
+          { name: "status", value: "resmi berdua", inline: false }
         ],
-        footer: { text: "selamat ya bro, jangan lupa ajak jalan! 🥳" },
+        footer: { text: "selamat ya bro, jangan lupa ajak jalan" },
         timestamp: new Date().toISOString()
       }]
     };
   } else if (eventStatus === "REJECTED_ATTEMPT") {
     payload = {
-      username: "Kabar Dari Doi 💌",
+      username: "Kabar Dari Doi",
       avatar_url: "https://cdn-icons-png.flaticon.com/512/1077/1077035.png",
       embeds: [{
-        title: "wkwkwk Via sempet iseng mau milih Hati Retak 😜",
-        description: `Tenang bro! Begitu **${state.doiName}** pencet Hati Retak, langsung dikasih pesan popup usil suruh susun Hati Merah yang utuh aja di sebelah! 😜👈`,
-        color: 16753920, // Orange #ffaa00
+        title: "wkwk Via sempet iseng mau milih hati retak",
+        description: `tenang bro, begitu **${state.doiName}** pencet hati retak langsung dikasih popup suruh susun yang utuh`,
+        color: 16753920,
         fields: [
-          { name: "👤 Doi", value: state.doiName, inline: true },
-          { name: "⚡ Status", value: "Ke-distract popup peringatan 😜", inline: true }
+          { name: "doi", value: state.doiName, inline: true },
+          { name: "status", value: "ke-distract popup", inline: true }
         ],
-        footer: { text: "tunggu bentar lagi pasti disusun yang merah! ✨" },
+        footer: { text: "tunggu bentar lagi pasti disusun yang merah" },
         timestamp: new Date().toISOString()
       }]
     };
@@ -160,11 +130,10 @@ function sendDiscordNotification(eventStatus) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
-  }).then(() => console.log("Discord notification sent!"))
-    .catch(err => console.error("Discord webhook error:", err));
+  }).catch(() => {});
 }
 
-// --- 6-BLOCK PUZZLE GAME ENGINE ---
+// --- PUZZLE ---
 function initPuzzleGame() {
   state.placedPieces = 0;
   state.selectedPieceIdx = null;
@@ -175,57 +144,32 @@ function initPuzzleGame() {
 
   const imgAsset = state.activeHeartType === "yes" ? "assets/heart_puzzle.svg" : "assets/heart_broken.svg";
 
-  // Reset 6 grid slots
   const slots = document.querySelectorAll(".puzzle-slot");
   slots.forEach((slot, idx) => {
     slot.innerHTML = `<span class="slot-hint">${idx + 1}</span>`;
     slot.classList.remove("filled", "drag-over");
     
-    slot.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      slot.classList.add("drag-over");
-    });
-
-    slot.addEventListener("dragleave", () => {
-      slot.classList.remove("drag-over");
-    });
-
+    slot.addEventListener("dragover", (e) => { e.preventDefault(); slot.classList.add("drag-over"); });
+    slot.addEventListener("dragleave", () => { slot.classList.remove("drag-over"); });
     slot.addEventListener("drop", (e) => {
       e.preventDefault();
       slot.classList.remove("drag-over");
       const pieceIdx = e.dataTransfer.getData("text/plain");
-      if (pieceIdx !== undefined && pieceIdx !== null) {
-        attemptPlacePiece(parseInt(pieceIdx), slot, imgAsset);
-      }
+      if (pieceIdx !== undefined && pieceIdx !== null) attemptPlacePiece(parseInt(pieceIdx), slot, imgAsset);
     });
-
     slot.addEventListener("click", () => {
-      if (state.selectedPieceIdx !== null) {
-        attemptPlacePiece(state.selectedPieceIdx, slot, imgAsset);
-      }
+      if (state.selectedPieceIdx !== null) attemptPlacePiece(state.selectedPieceIdx, slot, imgAsset);
     });
   });
 
-  // Shuffled 6 piece indices (0..5)
-  const pieceIndices = [3, 1, 5, 0, 4, 2];
-
-  pieceIndices.forEach(pIdx => {
+  [3, 1, 5, 0, 4, 2].forEach(pIdx => {
     const pieceEl = document.createElement("div");
     pieceEl.className = "puzzle-piece";
     pieceEl.setAttribute("data-piece", pIdx);
     pieceEl.setAttribute("draggable", "true");
     pieceEl.style.backgroundImage = `url('${imgAsset}')`;
-
-    pieceEl.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("text/plain", pIdx);
-      selectPiece(pIdx, pieceEl);
-    });
-
-    pieceEl.addEventListener("click", (e) => {
-      e.stopPropagation();
-      selectPiece(pIdx, pieceEl);
-    });
-
+    pieceEl.addEventListener("dragstart", (e) => { e.dataTransfer.setData("text/plain", pIdx); selectPiece(pIdx, pieceEl); });
+    pieceEl.addEventListener("click", (e) => { e.stopPropagation(); selectPiece(pIdx, pieceEl); });
     tray.appendChild(pieceEl);
   });
 }
@@ -239,31 +183,23 @@ function selectPiece(pIdx, pieceEl) {
 
 function attemptPlacePiece(pieceIdx, slotEl, imgAsset) {
   const slotIdx = parseInt(slotEl.getAttribute("data-slot"));
-
   if (slotIdx === pieceIdx && !slotEl.classList.contains("filled")) {
     playChimeSound(800, "sine");
     slotEl.classList.add("filled");
-    
     const placedElem = document.createElement("div");
     placedElem.className = "puzzle-piece placed";
     placedElem.setAttribute("data-piece", pieceIdx);
     placedElem.style.backgroundImage = `url('${imgAsset}')`;
     slotEl.innerHTML = "";
     slotEl.appendChild(placedElem);
-
     const trayPiece = document.querySelector(`.pieces-tray .puzzle-piece[data-piece="${pieceIdx}"]`);
     if (trayPiece) trayPiece.remove();
-
     state.selectedPieceIdx = null;
     state.placedPieces++;
     document.getElementById("placed-count").textContent = state.placedPieces;
-
     if (state.placedPieces === 6) {
-      if (state.activeHeartType === "yes") {
-        setTimeout(onPuzzleComplete, 500);
-      } else {
-        showBrokenHeartWarning();
-      }
+      if (state.activeHeartType === "yes") setTimeout(onPuzzleComplete, 500);
+      else showBrokenHeartWarning();
     }
   } else {
     playChimeSound(250, "square");
@@ -274,17 +210,13 @@ function attemptPlacePiece(pieceIdx, slotEl, imgAsset) {
 
 function showBrokenHeartWarning() {
   playChimeSound(200, "sawtooth");
-  const warnBox = document.getElementById("warning-box");
-  warnBox.style.display = "block";
-
-  // Send Discord alert notification for broken heart attempt
+  document.getElementById("warning-box").style.display = "block";
   sendDiscordNotification("REJECTED_ATTEMPT");
-
   setTimeout(() => {
     state.activeHeartType = "yes";
     document.getElementById("tab-yes-heart").classList.add("active");
     document.getElementById("tab-no-heart").classList.remove("active");
-    warnBox.style.display = "none";
+    document.getElementById("warning-box").style.display = "none";
     initPuzzleGame();
   }, 2200);
 }
@@ -292,14 +224,8 @@ function showBrokenHeartWarning() {
 function onPuzzleComplete() {
   playVictoryFanfare();
   triggerConfetti();
-
-  // Send Discord notification for proposal accepted!
   sendDiscordNotification("ACCEPTED");
-
-  setTimeout(() => {
-    // Switch to Screen 4 (Praise & Photo Card)
-    switchScreen("screen-praise");
-  }, 1200);
+  setTimeout(() => switchScreen("screen-praise"), 1200);
 }
 
 function goToVictoryScreen() {
@@ -308,7 +234,7 @@ function goToVictoryScreen() {
   switchScreen("screen-victory");
 }
 
-// --- AUDIO CONTROLLER & WEB AUDIO API SYNTHESIZER ---
+// --- AUDIO ---
 let audioCtx = null;
 let isMusicPlaying = false;
 
@@ -316,31 +242,23 @@ function initAudio() {
   const bgMusic = document.getElementById("bg-music");
   bgMusic.src = state.musicUrl;
   bgMusic.volume = 0.5;
-
-  const btnToggle = document.getElementById("btn-music-toggle");
-  const vinylRecord = document.getElementById("vinyl-record");
-
-  btnToggle.addEventListener("click", () => {
+  document.getElementById("btn-music-toggle").addEventListener("click", () => {
     if (isMusicPlaying) {
       bgMusic.pause();
       isMusicPlaying = false;
-      vinylRecord.classList.remove("spin");
+      document.getElementById("vinyl-record").classList.remove("spin");
     } else {
       bgMusic.play().then(() => {
         isMusicPlaying = true;
-        vinylRecord.classList.add("spin");
-      }).catch(e => console.log("Audio play error", e));
+        document.getElementById("vinyl-record").classList.add("spin");
+      }).catch(() => {});
     }
   });
 }
 
 function getAudioContext() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  if (audioCtx.state === "suspended") {
-    audioCtx.resume();
-  }
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === "suspended") audioCtx.resume();
   return audioCtx;
 }
 
@@ -349,51 +267,37 @@ function playChimeSound(freq = 523.25, type = "sine") {
     const ctx = getAudioContext();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-    
     osc.type = type;
     osc.frequency.setValueAtTime(freq, ctx.currentTime);
-    
     gain.gain.setValueAtTime(0.15, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
-    
     osc.connect(gain);
     gain.connect(ctx.destination);
-    
     osc.start();
     osc.stop(ctx.currentTime + 0.5);
   } catch (e) {}
 }
 
 function playVictoryFanfare() {
-  const notes = [523.25, 659.25, 783.99, 1046.50];
-  notes.forEach((freq, idx) => {
+  [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
     setTimeout(() => playChimeSound(freq, "triangle"), idx * 120);
   });
 }
 
-// --- FLOATING BACKGROUND SAKURA & HEARTS CANVAS ---
+// --- BACKGROUND CANVAS ---
 function initBackgroundCanvas() {
   const canvas = document.getElementById("bg-canvas");
   const ctx = canvas.getContext("2d");
-
   let width = canvas.width = window.innerWidth;
   let height = canvas.height = window.innerHeight;
-
-  window.addEventListener("resize", () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
+  window.addEventListener("resize", () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
 
   const particles = [];
-  const count = 45;
-
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < 45; i++) {
     particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
+      x: Math.random() * width, y: Math.random() * height,
       size: Math.random() * 14 + 6,
       speedY: Math.random() * 1.2 + 0.5,
-      speedX: Math.sin(Math.random() * Math.PI) * 0.8,
       rotation: Math.random() * 360,
       rotationSpeed: (Math.random() - 0.5) * 2,
       opacity: Math.random() * 0.6 + 0.3,
@@ -402,155 +306,95 @@ function initBackgroundCanvas() {
   }
 
   function drawPetal(x, y, size, rotation, opacity) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate((rotation * Math.PI) / 180);
-    ctx.globalAlpha = opacity;
-    ctx.fillStyle = "#ffb7c5";
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
+    ctx.save(); ctx.translate(x, y); ctx.rotate((rotation * Math.PI) / 180);
+    ctx.globalAlpha = opacity; ctx.fillStyle = "#ffb7c5";
+    ctx.beginPath(); ctx.moveTo(0, 0);
     ctx.quadraticCurveTo(size / 2, -size / 2, size, 0);
     ctx.quadraticCurveTo(size / 2, size / 2, 0, 0);
-    ctx.fill();
-    ctx.restore();
+    ctx.fill(); ctx.restore();
   }
 
   function drawHeart(x, y, size, opacity) {
-    ctx.save();
-    ctx.globalAlpha = opacity;
-    ctx.fillStyle = "#ff4b72";
-    ctx.beginPath();
-    ctx.moveTo(x, y);
+    ctx.save(); ctx.globalAlpha = opacity; ctx.fillStyle = "#ff4b72";
+    ctx.beginPath(); ctx.moveTo(x, y);
     ctx.bezierCurveTo(x - size / 2, y - size / 2, x - size, y + size / 3, x, y + size);
     ctx.bezierCurveTo(x + size, y + size / 3, x + size / 2, y - size / 2, x, y);
-    ctx.fill();
-    ctx.restore();
+    ctx.fill(); ctx.restore();
   }
 
-  function animate() {
+  (function animate() {
     ctx.clearRect(0, 0, width, height);
-
     particles.forEach(p => {
-      p.y += p.speedY;
-      p.x += Math.sin(p.y * 0.015) * 0.8;
-      p.rotation += p.rotationSpeed;
-
-      if (p.y > height + 20) {
-        p.y = -20;
-        p.x = Math.random() * width;
-      }
-
-      if (p.isHeart) {
-        drawHeart(p.x, p.y, p.size, p.opacity);
-      } else {
-        drawPetal(p.x, p.y, p.size, p.rotation, p.opacity);
-      }
+      p.y += p.speedY; p.x += Math.sin(p.y * 0.015) * 0.8; p.rotation += p.rotationSpeed;
+      if (p.y > height + 20) { p.y = -20; p.x = Math.random() * width; }
+      if (p.isHeart) drawHeart(p.x, p.y, p.size, p.opacity);
+      else drawPetal(p.x, p.y, p.size, p.rotation, p.opacity);
     });
-
     requestAnimationFrame(animate);
-  }
-
-  animate();
+  })();
 }
 
-// --- CONFETTI EXPLOSION CANVAS ---
+// --- CONFETTI ---
 function triggerConfetti() {
   const canvas = document.getElementById("confetti-canvas");
   const ctx = canvas.getContext("2d");
-
   let width = canvas.width = window.innerWidth;
   let height = canvas.height = window.innerHeight;
-
-  const confettiCount = 120;
+  const colors = ['#ff4b72', '#ff758c', '#ffd166', '#06d6a0', '#118ab2', '#8a2be2', '#fff'];
   const confetti = [];
-
-  const colors = ['#ff4b72', '#ff758c', '#ffd166', '#06d6a0', '#118ab2', '#8a2be2', '#ffffff'];
-
-  for (let i = 0; i < confettiCount; i++) {
+  for (let i = 0; i < 120; i++) {
     confetti.push({
-      x: width / 2,
-      y: height / 2 + 50,
-      vx: (Math.random() - 0.5) * 18,
-      vy: (Math.random() - 0.8) * 20,
+      x: width / 2, y: height / 2 + 50,
+      vx: (Math.random() - 0.5) * 18, vy: (Math.random() - 0.8) * 20,
       size: Math.random() * 8 + 6,
       color: colors[Math.floor(Math.random() * colors.length)],
-      rotation: Math.random() * 360,
-      rotationSpeed: (Math.random() - 0.5) * 10,
-      opacity: 1
+      rotation: Math.random() * 360, rotationSpeed: (Math.random() - 0.5) * 10, opacity: 1
     });
   }
-
-  let animationFrame;
-
-  function render() {
+  let af;
+  (function render() {
     ctx.clearRect(0, 0, width, height);
-
-    let activeCount = 0;
-
+    let active = 0;
     confetti.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.4;
-      p.vx *= 0.98;
-      p.rotation += p.rotationSpeed;
-      p.opacity -= 0.008;
-
+      p.x += p.vx; p.y += p.vy; p.vy += 0.4; p.vx *= 0.98;
+      p.rotation += p.rotationSpeed; p.opacity -= 0.008;
       if (p.opacity > 0) {
-        activeCount++;
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate((p.rotation * Math.PI) / 180);
-        ctx.globalAlpha = Math.max(0, p.opacity);
-        ctx.fillStyle = p.color;
-        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-        ctx.restore();
+        active++;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.globalAlpha = Math.max(0, p.opacity); ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size); ctx.restore();
       }
     });
-
-    if (activeCount > 0) {
-      animationFrame = requestAnimationFrame(render);
-    } else {
-      ctx.clearRect(0, 0, width, height);
-      cancelAnimationFrame(animationFrame);
-    }
-  }
-
-  render();
+    if (active > 0) af = requestAnimationFrame(render);
+    else { ctx.clearRect(0, 0, width, height); cancelAnimationFrame(af); }
+  })();
 }
 
-// --- EVENT HANDLERS & NAVIGATION ---
+// --- EVENTS ---
 function initEvents() {
-  const envelope = document.getElementById("envelope-trigger");
-  envelope.addEventListener("click", () => {
+  document.getElementById("envelope-trigger").addEventListener("click", () => {
     playChimeSound(800, "sine");
-    envelope.classList.add("open");
-
+    document.getElementById("envelope-trigger").classList.add("open");
     const bgMusic = document.getElementById("bg-music");
     bgMusic.play().then(() => {
       isMusicPlaying = true;
       document.getElementById("vinyl-record").classList.add("spin");
-    }).catch(e => console.log("Audio play blocked", e));
-
-    setTimeout(() => {
-      switchScreen("screen-proposal");
-    }, 1200);
+    }).catch(() => {});
+    setTimeout(() => switchScreen("screen-proposal"), 1200);
   });
 
-  const tabYes = document.getElementById("tab-yes-heart");
-  const tabNo = document.getElementById("tab-no-heart");
-
-  tabYes.addEventListener("click", () => {
+  document.getElementById("tab-yes-heart").addEventListener("click", () => {
     state.activeHeartType = "yes";
-    tabYes.classList.add("active");
-    tabNo.classList.remove("active");
+    document.getElementById("tab-yes-heart").classList.add("active");
+    document.getElementById("tab-no-heart").classList.remove("active");
     document.getElementById("warning-box").style.display = "none";
     initPuzzleGame();
   });
 
-  tabNo.addEventListener("click", () => {
+  document.getElementById("tab-no-heart").addEventListener("click", () => {
     state.activeHeartType = "no";
-    tabNo.classList.add("active");
-    tabYes.classList.remove("active");
+    document.getElementById("tab-no-heart").classList.add("active");
+    document.getElementById("tab-yes-heart").classList.remove("active");
     showBrokenHeartWarning();
     initPuzzleGame();
   });
@@ -560,28 +404,24 @@ function initEvents() {
   document.getElementById("btn-save-settings").addEventListener("click", () => {
     state.doiName = document.getElementById("input-doi-name").value.trim() || "Via";
     state.senderName = document.getElementById("input-sender-name").value.trim() || "aku";
-    state.waNum = document.getElementById("input-wa-num").value.trim() || "6281234567890";
     state.proposalText = document.getElementById("input-proposal").value.trim() || state.proposalText;
     state.praiseText = document.getElementById("input-praise").value.trim() || state.praiseText;
-    state.doiPhoto = document.getElementById("input-doi-photo").value.trim() || state.doiPhoto;
+    for (let i = 0; i < 4; i++) {
+      const val = document.getElementById(`input-doi-photo-${i + 1}`).value.trim();
+      if (val) state.doiPhotos[i] = val;
+    }
     state.discordWebhook = document.getElementById("input-discord-webhook").value.trim();
-
     const musicInp = document.getElementById("input-music-url").value.trim();
     if (musicInp) state.musicUrl = musicInp;
-
     saveSettings();
   });
   document.getElementById("btn-reset-settings").addEventListener("click", resetSettings);
 }
 
 function switchScreen(screenId) {
-  const screens = document.querySelectorAll(".screen");
-  screens.forEach(s => s.classList.remove("active"));
-
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   const target = document.getElementById(screenId);
-  if (target) {
-    target.classList.add("active");
-  }
+  if (target) target.classList.add("active");
 }
 
 function restartApp() {
@@ -589,10 +429,8 @@ function restartApp() {
   document.getElementById("tab-yes-heart").classList.add("active");
   document.getElementById("tab-no-heart").classList.remove("active");
   document.getElementById("warning-box").style.display = "none";
-
   initPuzzleGame();
   switchScreen("screen-opening");
-  
   const envelope = document.getElementById("envelope-trigger");
   if (envelope) envelope.classList.remove("open");
 }
@@ -609,10 +447,11 @@ function closeSettingsModal() {
 function populateSettingsForm() {
   document.getElementById("input-doi-name").value = state.doiName;
   document.getElementById("input-sender-name").value = state.senderName;
-  document.getElementById("input-wa-num").value = state.waNum;
   document.getElementById("input-proposal").value = state.proposalText;
   document.getElementById("input-praise").value = state.praiseText;
-  document.getElementById("input-doi-photo").value = state.doiPhoto || "";
+  for (let i = 0; i < 4; i++) {
+    document.getElementById(`input-doi-photo-${i + 1}`).value = (state.doiPhotos && state.doiPhotos[i]) || "";
+  }
   document.getElementById("input-discord-webhook").value = state.discordWebhook || "";
   document.getElementById("input-music-url").value = state.musicUrl;
 }
