@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff9a9e"/>
+      <stop offset="100%" stop-color="#fecfef"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Sticker White Outline Background -->
+  <circle cx="250" cy="250" r="230" fill="#ffffff" filter="url(#glow)"/>
+  <circle cx="250" cy="250" r="215" fill="url(#bgGrad)"/>
+
+  <!-- Floating Hearts -->
+  <path d="M 250 90 C 230 60, 180 70, 195 110 C 210 150, 250 170, 250 170 C 250 170, 290 150, 305 110 C 320 70, 270 60, 250 90 Z" fill="#ff4b72" />
+  <path d="M 150 140 C 135 115, 95 125, 105 155 C 115 185, 150 200, 150 200 C 150 200, 185 185, 195 155 C 205 125, 165 115, 150 140 Z" fill="#ff758c" transform="scale(0.7) translate(80, 50)"/>
+  <path d="M 350 140 C 335 115, 295 125, 305 155 C 315 185, 350 200, 350 200 C 350 200, 385 185, 395 155 C 405 125, 365 115, 350 140 Z" fill="#ff758c" transform="scale(0.7) translate(160, 50)"/>
+
+  <!-- Left Cat (White/Pink) -->
+  <g id="cat-left">
+    <!-- Ears -->
+    <path d="M 140 230 L 110 170 L 170 200 Z" fill="#ffffff" stroke="#f3a4b5" stroke-width="4"/>
+    <path d="M 143 222 L 122 178 L 162 200 Z" fill="#ffccd5"/>
+    <path d="M 220 200 L 260 160 L 240 220 Z" fill="#ffffff" stroke="#f3a4b5" stroke-width="4"/>
+    <path d="M 222 200 L 252 170 L 238 214 Z" fill="#ffccd5"/>
+    
+    <!-- Head -->
+    <ellipse cx="190" cy="250" rx="65" ry="55" fill="#ffffff" stroke="#f3a4b5" stroke-width="5"/>
+    
+    <!-- Cheeks -->
+    <ellipse cx="150" cy="265" rx="14" ry="9" fill="#ff85a2" opacity="0.6"/>
+    <ellipse cx="230" cy="265" rx="14" ry="9" fill="#ff85a2" opacity="0.6"/>
+
+    <!-- Eyes (Happy Arcs) -->
+    <path d="M 160 248 Q 170 238 180 248" fill="none" stroke="#4a1525" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 200 248 Q 210 238 220 248" fill="none" stroke="#4a1525" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Nose & Mouth -->
+    <polygon points="187,258 193,258 190,263" fill="#ff4b72"/>
+    <path d="M 183 266 Q 190 272 190 266 Q 190 272 197 266" fill="none" stroke="#4a1525" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Body -->
+    <path d="M 150 295 Q 190 290 210 370 L 130 370 Z" fill="#ffffff" stroke="#f3a4b5" stroke-width="5"/>
+  </g>
+
+  <!-- Right Cat (Cream/Peach) -->
+  <g id="cat-right">
+    <!-- Ears -->
+    <path d="M 260 220 L 240 160 L 290 195 Z" fill="#ffecdb" stroke="#e0a98b" stroke-width="4"/>
+    <path d="M 262 216 L 248 172 L 284 196 Z" fill="#fbbd9e"/>
+    <path d="M 340 200 L 390 170 L 360 230 Z" fill="#ffecdb" stroke="#e0a98b" stroke-width="4"/>
+    <path d="M 342 204 L 378 180 L 358 224 Z" fill="#fbbd9e"/>
+
+    <!-- Head -->
+    <ellipse cx="310" cy="250" rx="65" ry="55" fill="#ffecdb" stroke="#e0a98b" stroke-width="5"/>
+
+    <!-- Cheeks -->
+    <ellipse cx="270" cy="265" rx="14" ry="9" fill="#ff85a2" opacity="0.6"/>
+    <ellipse cx="350" cy="265" rx="14" ry="9" fill="#ff85a2" opacity="0.6"/>
+
+    <!-- Eyes (Joyful Wink & Smile) -->
+    <path d="M 280 248 Q 290 238 300 248" fill="none" stroke="#4a1525" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 320 248 Q 330 238 340 248" fill="none" stroke="#4a1525" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Nose & Mouth -->
+    <polygon points="307,258 313,258 310,263" fill="#ff4b72"/>
+    <path d="M 303 266 Q 310 272 310 266 Q 310 272 317 266" fill="none" stroke="#4a1525" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Body -->
+    <path d="M 270 295 Q 310 290 370 370 L 290 370 Z" fill="#ffecdb" stroke="#e0a98b" stroke-width="5"/>
+  </g>
+
+  <!-- Paws Holding Hands Heart -->
+  <path d="M 225 320 Q 250 310 275 320 Q 250 340 225 320 Z" fill="#ff4b72" filter="url(#glow)"/>
+</svg>
