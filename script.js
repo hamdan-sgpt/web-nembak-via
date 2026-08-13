@@ -1,6 +1,7 @@
 /* ==========================================
    ROMANTIC WEB NEMBAK PACAR - INTERACTIVE JS
    6-BLOCK DUAL HEART PROPOSAL ENGINE
+   NATURAL HUMAN PRAISE & PHOTO CARD
    DISCORD WEBHOOK REAL-TIME NOTIFICATIONS
    ========================================== */
 
@@ -10,24 +11,14 @@ const state = {
   senderName: "aku",
   waNum: "6281234567890",
   proposalText: "sebenarnya aku udah lama banget nyimpen perasaan ini ke kamu, Devia... tiap hari ada kamu tuh bikin hari-hariku jauh lebih bahagia! jadi hari ini aku mau nanya langsung: <strong>Via, kamu mau gak jadi pacar aku? 👉👈</strong>",
+  praiseText: "jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. kamu tuh orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi... makasih yaa udah hadir dan nemenin aku 💖",
+  doiPhoto: "assets/doi_photo.svg",
   discordWebhook: "https://discord.com/api/webhooks/1537412788295831632/29FxLi7XLwZfIuSuCumO6m-HUTdUsEY2e0yaC0wBHuyeKA0h7YSV10GP2Yge1VBlKOay",
   musicUrl: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-romance-112818.mp3",
   placedPieces: 0,
   selectedPieceIdx: null,
   activeHeartType: "yes" // "yes" = Full Heart (6 blocks), "no" = Broken Heart
 };
-
-// Natural evasive button warning messages
-const noBtnMessages = [
-  "eits ga bisa 😜",
-  "yakin nih beneran ga mau? 🥺",
-  "teganyaaa... 😭",
-  "tombol ini macet, pencet yang hijau aja! 👈",
-  "pikir-pikir lagi dong cantikk! ✨",
-  "gak bisa diklik wkwkwk 🏃‍♂️",
-  "coba lagi deh kalo bisa 😜",
-  "pliss jangannn 🥺❤️"
-];
 
 // --- INITIALIZATION ---
 document.addEventListener("DOMContentLoaded", () => {
@@ -58,6 +49,8 @@ function saveSettings() {
     senderName: state.senderName,
     waNum: state.waNum,
     proposalText: state.proposalText,
+    praiseText: state.praiseText,
+    doiPhoto: state.doiPhoto,
     discordWebhook: state.discordWebhook,
     musicUrl: state.musicUrl
   }));
@@ -73,6 +66,8 @@ function resetSettings() {
   state.senderName = "aku";
   state.waNum = "6281234567890";
   state.proposalText = "sebenarnya aku udah lama banget nyimpen perasaan ini ke kamu, Devia... tiap hari ada kamu tuh bikin hari-hariku jauh lebih bahagia! jadi hari ini aku mau nanya langsung: <strong>Via, kamu mau gak jadi pacar aku? 👉👈</strong>";
+  state.praiseText = "jujur ya Via, dari pertama kenal kamu tuh aku udah kagum banget. kamu tuh orangnya manis, lucu, terus senyum kamu selalu bisa bikin hari-hariku yang capek jadi seru lagi... makasih yaa udah hadir dan nemenin aku 💖";
+  state.doiPhoto = "assets/doi_photo.svg";
   state.discordWebhook = "https://discord.com/api/webhooks/1537412788295831632/29FxLi7XLwZfIuSuCumO6m-HUTdUsEY2e0yaC0wBHuyeKA0h7YSV10GP2Yge1VBlKOay";
   state.musicUrl = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-romance-112818.mp3";
   
@@ -88,6 +83,14 @@ function updateDOMWithState() {
   
   const proposalEl = document.getElementById("proposal-text");
   if (proposalEl) proposalEl.innerHTML = state.proposalText;
+
+  const praiseEl = document.getElementById("praise-text");
+  if (praiseEl) praiseEl.innerHTML = state.praiseText;
+
+  const doiPhotoEl = document.getElementById("doi-photo-img");
+  if (doiPhotoEl) {
+    doiPhotoEl.src = state.doiPhoto || "assets/doi_photo.svg";
+  }
 
   const bgMusic = document.getElementById("bg-music");
   if (bgMusic && bgMusic.src !== state.musicUrl) {
@@ -294,8 +297,15 @@ function onPuzzleComplete() {
   sendDiscordNotification("ACCEPTED");
 
   setTimeout(() => {
-    switchScreen("screen-victory");
+    // Switch to Screen 4 (Praise & Photo Card)
+    switchScreen("screen-praise");
   }, 1200);
+}
+
+function goToVictoryScreen() {
+  playChimeSound(650, "sine");
+  document.getElementById("victory-date").textContent = getFormattedDate();
+  switchScreen("screen-victory");
 }
 
 // --- AUDIO CONTROLLER & WEB AUDIO API SYNTHESIZER ---
@@ -552,6 +562,8 @@ function initEvents() {
     state.senderName = document.getElementById("input-sender-name").value.trim() || "aku";
     state.waNum = document.getElementById("input-wa-num").value.trim() || "6281234567890";
     state.proposalText = document.getElementById("input-proposal").value.trim() || state.proposalText;
+    state.praiseText = document.getElementById("input-praise").value.trim() || state.praiseText;
+    state.doiPhoto = document.getElementById("input-doi-photo").value.trim() || state.doiPhoto;
     state.discordWebhook = document.getElementById("input-discord-webhook").value.trim();
 
     const musicInp = document.getElementById("input-music-url").value.trim();
@@ -599,6 +611,8 @@ function populateSettingsForm() {
   document.getElementById("input-sender-name").value = state.senderName;
   document.getElementById("input-wa-num").value = state.waNum;
   document.getElementById("input-proposal").value = state.proposalText;
+  document.getElementById("input-praise").value = state.praiseText;
+  document.getElementById("input-doi-photo").value = state.doiPhoto || "";
   document.getElementById("input-discord-webhook").value = state.discordWebhook || "";
   document.getElementById("input-music-url").value = state.musicUrl;
 }
