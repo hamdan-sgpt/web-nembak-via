@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="photoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb7c5"/>
+      <stop offset="50%" stop-color="#ffd1dc"/>
+      <stop offset="100%" stop-color="#ffe4e9"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="500" height="500" rx="30" fill="url(#photoGrad)"/>
+
+  <!-- Sparkles & Hearts -->
+  <text x="50" y="90" font-size="32">✨</text>
+  <text x="400" y="100" font-size="32">🌸</text>
+  <text x="60" y="420" font-size="32">💕</text>
+  <text x="390" y="430" font-size="32">✨</text>
+
+  <!-- Cute Girl Character Portrait (Devia/Via) -->
+  <!-- Long Hair Back -->
+  <path d="M 140 220 Q 250 120 360 220 L 370 380 Q 250 420 130 380 Z" fill="#4a2e2b"/>
+
+  <!-- Face Head -->
+  <ellipse cx="250" cy="240" rx="80" ry="70" fill="#fff0e6"/>
+
+  <!-- Bangs Hair -->
+  <path d="M 170 210 Q 250 170 330 210 Q 290 230 250 205 Q 210 230 170 210 Z" fill="#4a2e2b"/>
+  
+  <!-- Cheeks Blush -->
+  <ellipse cx="200" cy="255" rx="16" ry="10" fill="#ff85a2" opacity="0.6"/>
+  <ellipse cx="300" cy="255" rx="16" ry="10" fill="#ff85a2" opacity="0.6"/>
+
+  <!-- Eyes Joyful Arcs -->
+  <path d="M 200 235 Q 215 220 230 235" fill="none" stroke="#331e1c" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 270 235 Q 285 220 300 235" fill="none" stroke="#331e1c" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Eyelashes -->
+  <path d="M 225 225 L 232 218" stroke="#331e1c" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 275 225 L 268 218" stroke="#331e1c" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Cute Smile -->
+  <path d="M 235 265 Q 250 278 265 265" fill="none" stroke="#ff4b72" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Cute Flower Hairpin -->
+  <circle cx="310" cy="195" r="10" fill="#ffffff"/>
+  <circle cx="310" cy="195" r="5" fill="#ffd166"/>
+
+  <!-- Outfit / Dress -->
+  <path d="M 185 305 Q 250 320 315 305 L 340 450 L 160 450 Z" fill="#ff758c"/>
+  <path d="M 215 310 Q 250 330 285 310 L 250 360 Z" fill="#ffffff" opacity="0.9"/>
+</svg>
