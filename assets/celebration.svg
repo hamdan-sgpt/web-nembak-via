@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="partyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff758c"/>
+      <stop offset="100%" stop-color="#ff7eb3"/>
+    </linearGradient>
+    <filter id="partyGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Sticker White Outline -->
+  <circle cx="250" cy="250" r="230" fill="#ffffff" filter="url(#partyGlow)"/>
+  <circle cx="250" cy="250" r="215" fill="url(#partyGrad)"/>
+
+  <!-- Confetti Elements -->
+  <circle cx="100" cy="120" r="8" fill="#ffd166"/>
+  <circle cx="400" cy="130" r="10" fill="#06d6a0"/>
+  <rect x="120" y="380" width="14" height="14" fill="#118ab2" transform="rotate(25 120 380)"/>
+  <rect x="380" y="370" width="16" height="16" fill="#ffd166" transform="rotate(45 380 370)"/>
+  <path d="M 230 60 L 240 80 L 260 85 L 245 100 L 250 120 L 230 110 L 210 120 L 215 100 L 200 85 L 220 80 Z" fill="#fff" opacity="0.9"/>
+
+  <!-- Giant Heart Behind -->
+  <path d="M 250 150 C 200 80, 100 110, 140 190 C 180 270, 250 310, 250 310 C 250 310, 320 270, 360 190 C 400 110, 300 80, 250 150 Z" fill="#ff4b72" opacity="0.85"/>
+
+  <!-- Hugging Cats Center -->
+  <!-- Left Cat -->
+  <ellipse cx="210" cy="250" rx="55" ry="50" fill="#ffffff" stroke="#f3a4b5" stroke-width="4"/>
+  <ellipse cx="180" cy="260" rx="12" ry="8" fill="#ff85a2" opacity="0.7"/>
+  <!-- Happy Eyes ^ ^ -->
+  <path d="M 185 245 L 195 235 L 205 245" fill="none" stroke="#4a1525" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 215 245 L 225 235 L 235 245" fill="none" stroke="#4a1525" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Right Cat Hugging -->
+  <ellipse cx="280" cy="250" rx="55" ry="50" fill="#ffecdb" stroke="#e0a98b" stroke-width="4"/>
+  <ellipse cx="310" cy="260" rx="12" ry="8" fill="#ff85a2" opacity="0.7"/>
+  <!-- Happy Eyes ^ ^ -->
+  <path d="M 255 245 L 265 235 L 275 245" fill="none" stroke="#4a1525" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 285 245 L 295 235 L 305 245" fill="none" stroke="#4a1525" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Hugging Paws -->
+  <path d="M 180 290 Q 250 330 320 290" fill="none" stroke="#ff4b72" stroke-width="12" stroke-linecap="round"/>
+  
+  <!-- Sparkles -->
+  <text x="70" y="240" font-size="30">✨</text>
+  <text x="390" y="240" font-size="35">✨</text>
+  <text x="235" y="410" font-size="35">💖</text>
+</svg>
